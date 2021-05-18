@@ -11,18 +11,18 @@ class LinkedList{
         }
     }
 
-    public void push(LinkedList list, int data){
+    public void push(LinkedList this, int data){
         Node new_node = new Node(data);
-        new_node.next = list.head;
-        list.head = new_node;
+        new_node.next = head;
+        head = new_node;
     }
 
-    public void append(LinkedList list, int data){
+    public void append(LinkedList this, int data){
         Node new_node = new Node(data);
-        if (list.head == null) {
-            list.head = new_node;
+        if (head == null) {
+            head = new_node;
         } else {
-            Node last_node = list.head;
+            Node last_node = head;
             while (last_node.next != null) {
                 last_node = last_node.next;
             }
@@ -30,14 +30,14 @@ class LinkedList{
         }
     }
 
-    public void insertAfter(LinkedList list, Node prev_node, int data){
+    public void insertAfter(LinkedList this, Node prev_node, int data){
         Node new_node = new Node(data);
         new_node.next = prev_node.next;
         prev_node.next = new_node;
     }
 
-    public void printLinkedList(LinkedList list) {
-        Node current_node = list.head;
+    public void printLinkedList(LinkedList this) {
+        Node current_node = head;
         System.out.print("head -> ");
         while(current_node != null){
             System.out.print(current_node.data + " -> ");
@@ -46,19 +46,25 @@ class LinkedList{
         System.out.println("null");
     }
 
-    public void deleteKey(LinkedList list, int key){
-        if(list.head == null){
+    public void deleteKey(LinkedList this, int key){
+        if(head == null){
             return;
         }
-        if(list.head.data == key){
-            list.head = list.head.next;
+        if(head.data == key){
+            Node temp = head;
+            head = head.next;
+            temp = null;
         } else {
-            Node curr_node = list.head;
-            while(curr_node.next != null){
-                if(curr_node.next.data == key){
-                    curr_node.next = curr_node.next.next;
+            Node curr_node = head.next;
+            Node prev_node = head;
+
+            while(curr_node != null){
+                if(curr_node.data == key){
+                    prev_node.next = curr_node.next;
+                    curr_node = null;
                     break;
                 } else {
+                    prev_node = curr_node;
                     curr_node = curr_node.next;
                 }
             }
@@ -67,21 +73,21 @@ class LinkedList{
 
     public static void main(String []args){
         LinkedList list = new LinkedList();
-        list.push(list, 5);
-        list.push(list, 7);
-        list.append(list, 8);
-        list.push(list, 9);
-        list.append(list, 11);
-        list.append(list, 12);
+        list.push(5);
+        list.push(7);
+        list.append(8);
+        list.push(9);
+        list.append(11);
+        list.append(12);
         Node n = list.head.next;
-        list.insertAfter(list, n, 8);
-        list.printLinkedList(list);
-        list.deleteKey(list, 9);
-        list.printLinkedList(list);
-        list.deleteKey(list, 8);
-        list.printLinkedList(list);
-        list.deleteKey(list, 12);
-        list.printLinkedList(list);
+        list.insertAfter(n, 8);
+        list.printLinkedList();
+        list.deleteKey(9);
+        list.printLinkedList();
+        list.deleteKey(8);
+        list.printLinkedList();
+        list.deleteKey(12);
+        list.printLinkedList();
     }
 }
 
