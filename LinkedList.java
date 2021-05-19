@@ -11,42 +11,42 @@ class LinkedList{
         }
     }
 
-    public void push(LinkedList this, int data){
-        Node new_node = new Node(data);
-        new_node.next = head;
-        head = new_node;
+    public void push(int data){
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
     }
 
-    public void append(LinkedList this, int data){
-        Node new_node = new Node(data);
+    public void append(int data){
+        Node newNode = new Node(data);
         if (head == null) {
-            head = new_node;
+            head = newNode;
         } else {
-            Node last_node = head;
-            while (last_node.next != null) {
-                last_node = last_node.next;
+            Node lastNode = head;
+            while (lastNode.next != null) {
+                lastNode = lastNode.next;
             }
-            last_node.next = new_node;
+            lastNode.next = newNode;
         }
     }
 
-    public void insertAfter(LinkedList this, Node prev_node, int data){
-        Node new_node = new Node(data);
-        new_node.next = prev_node.next;
-        prev_node.next = new_node;
+    public void insertAfter(Node prevNode, int data){
+        Node newNode = new Node(data);
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
     }
 
-    public void printLinkedList(LinkedList this) {
-        Node current_node = head;
+    public void printLinkedList() {
+        Node currentNode = head;
         System.out.print("head -> ");
-        while(current_node != null){
-            System.out.print(current_node.data + " -> ");
-            current_node = current_node.next;
+        while(currentNode != null){
+            System.out.print(currentNode.data + " -> ");
+            currentNode = currentNode.next;
         }
         System.out.println("null");
     }
 
-    public void deleteKey(LinkedList this, int key){
+    public void deleteKey(int key){
         if(head == null){
             return;
         }
@@ -55,17 +55,17 @@ class LinkedList{
             head = head.next;
             temp = null;
         } else {
-            Node curr_node = head.next;
-            Node prev_node = head;
+            Node currNode = head.next;
+            Node prevNode = head;
 
-            while(curr_node != null){
-                if(curr_node.data == key){
-                    prev_node.next = curr_node.next;
-                    curr_node = null;
+            while(currNode != null){
+                if(currNode.data == key){
+                    prevNode.next = currNode.next;
+                    currNode = null;
                     break;
                 } else {
-                    prev_node = curr_node;
-                    curr_node = curr_node.next;
+                    prevNode = currNode;
+                    currNode = currNode.next;
                 }
             }
         }
