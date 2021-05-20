@@ -1,23 +1,22 @@
 package com.company;
-class LinkedList{
+class LinkedList<T>{
     Node head;
-
-    static class Node{
-        int data;
+    static class Node<T>{
+        T data;
         Node next;
-        Node(int d){
+        Node(T d){
             data = d;
             next = null;
         }
     }
 
-    public void push(int data){
+    public void push(T data){
         Node newNode = new Node(data);
         newNode.next = head;
         head = newNode;
     }
 
-    public void append(int data){
+    public void append(T data){
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
@@ -30,7 +29,7 @@ class LinkedList{
         }
     }
 
-    public void insertAfter(Node prevNode, int data){
+    public void insertAfter(Node prevNode, T data){
         Node newNode = new Node(data);
         newNode.next = prevNode.next;
         prevNode.next = newNode;
@@ -46,7 +45,7 @@ class LinkedList{
         System.out.println("null");
     }
 
-    public void deleteKey(int key){
+    public void deleteKey(T key){
         if(head == null){
             return;
         }
@@ -59,7 +58,7 @@ class LinkedList{
             Node prevNode = head;
 
             while(currNode != null){
-                if(currNode.data == key){
+                if(currNode.data.equals(key)){
                     prevNode.next = currNode.next;
                     currNode = null;
                     break;
@@ -72,23 +71,21 @@ class LinkedList{
     }
 
     public static void main(String []args){
-        LinkedList list = new LinkedList();
-        list.push(5);
-        list.push(7);
-        list.append(8);
-        list.push(9);
-        list.append(11);
-        list.append(12);
-        Node n = list.head.next;
-        list.insertAfter(n, 8);
+        LinkedList <String> list = new LinkedList<String>();
+        list.push("Archit");
+        list.push("is");
+        list.append("Agrawal");
+        list.push("My");
+        list.append("and");
+        list.append("I live in India");
+        Node n = list.head;
+        list.insertAfter(n, "name");
         list.printLinkedList();
-        list.deleteKey(9);
+        list.deleteKey("My");
         list.printLinkedList();
-        list.deleteKey(8);
+        list.deleteKey("Agrawal");
         list.printLinkedList();
-        list.deleteKey(12);
+        list.deleteKey("I live in India");
         list.printLinkedList();
     }
 }
-
-
