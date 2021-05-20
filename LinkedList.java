@@ -1,63 +1,91 @@
 package com.company;
-class LinkedList{
+class LinkedList<T>{
     Node head;
-
-    static class Node{
-        int data;
+    static class Node<T>{
+        T data;
         Node next;
-        Node(int d){
+        Node(T d){
             data = d;
             next = null;
         }
     }
 
-    public void push(LinkedList list, int data){
-        Node new_node = new Node(data);
-        new_node.next = list.head;
-        list.head = new_node;
+    public void push(T data){
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
     }
 
-    public void append(LinkedList list, int data){
-        Node new_node = new Node(data);
-        if (list.head == null) {
-            list.head = new_node;
+    public void append(T data){
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
         } else {
-            Node last_node = list.head;
-            while (last_node.next != null) {
-                last_node = last_node.next;
+            Node lastNode = head;
+            while (lastNode.next != null) {
+                lastNode = lastNode.next;
             }
-            last_node.next = new_node;
+            lastNode.next = newNode;
         }
     }
 
-    public void insertAfter(LinkedList list, Node prev_node, int data){
-        Node new_node = new Node(data);
-        new_node.next = prev_node.next;
-        prev_node.next = new_node;
+    public void insertAfter(Node prevNode, T data){
+        Node newNode = new Node(data);
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
     }
 
-    public void printLinkedList(LinkedList list) {
-        Node current_node = list.head;
+    public void printLinkedList() {
+        Node currentNode = head;
         System.out.print("head -> ");
-        while(current_node != null){
-            System.out.print(current_node.data + " -> ");
-            current_node = current_node.next;
+        while(currentNode != null){
+            System.out.print(currentNode.data + " -> ");
+            currentNode = currentNode.next;
         }
         System.out.println("null");
     }
 
-    public static void main(String []args){
-        LinkedList list = new LinkedList();
-        list.push(list, 5);
-        list.push(list, 7);
-        list.append(list, 8);
-        list.push(list, 9);
-        list.append(list, 11);
-        Node n = list.head.next;
-        list.insertAfter(list, n, 12);
-        list.printLinkedList(list);
+    public void deleteKey(T key){
+        if(head == null){
+            return;
+        }
+        if(head.data == key){
+            Node temp = head;
+            head = head.next;
+            temp = null;
+        } else {
+            Node currNode = head.next;
+            Node prevNode = head;
 
+            while(currNode != null){
+                if(currNode.data.equals(key)){
+                    prevNode.next = currNode.next;
+                    currNode = null;
+                    break;
+                } else {
+                    prevNode = currNode;
+                    currNode = currNode.next;
+                }
+            }
+        }
+    }
+
+    public static void main(String []args){
+        LinkedList <String> list = new LinkedList<String>();
+        list.push("Archit");
+        list.push("is");
+        list.append("Agrawal");
+        list.push("My");
+        list.append("and");
+        list.append("I live in India");
+        Node n = list.head;
+        list.insertAfter(n, "name");
+        list.printLinkedList();
+        list.deleteKey("My");
+        list.printLinkedList();
+        list.deleteKey("Agrawal");
+        list.printLinkedList();
+        list.deleteKey("I live in India");
+        list.printLinkedList();
     }
 }
-
-
